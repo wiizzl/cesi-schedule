@@ -59,8 +59,8 @@ func dateOnly(t time.Time) string {
 func toICS(seances []seance) string {
 	stamp := utc(time.Now())
 	lines := []string{
-		"BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//edt-cesi-api//FR",
-		"CALSCALE:GREGORIAN", "METHOD:PUBLISH", "X-WR-CALNAME:EDT CESI",
+		"BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//cesi-schedule//FR",
+		"CALSCALE:GREGORIAN", "METHOD:PUBLISH", "X-WR-CALNAME:CESI Schedule",
 	}
 
 	for _, s := range seances {

@@ -76,7 +76,7 @@ func HandleICS(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "text/calendar; charset=utf-8")
-	w.Header().Set("Content-Disposition", `inline; filename="edt-cesi.ics"`)
+	w.Header().Set("Content-Disposition", `inline; filename="schedule.ics"`)
 	w.Header().Set("Cache-Control", "private, max-age=900")
 	io.WriteString(w, toICS(seances))
 }
