@@ -1,12 +1,10 @@
-package main
+package api
 
 import (
 	"errors"
 	"io"
-	"log"
 	"net/http"
 	"net/url"
-	"os"
 	"strconv"
 	"strings"
 	"time"
@@ -52,8 +50,8 @@ func resolveRange(q url.Values) (start, end string, err error) {
 	return start, end, nil
 }
 
-func handleICS(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/" {
+func HandleICS(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/" && r.URL.Path != "/api" {
 		http.Error(w, "not found", http.StatusNotFound)
 		return
 	}
@@ -92,16 +90,4 @@ func statusFor(err error) int {
 	default:
 		return http.StatusBadGateway
 	}
-}
-
-func main() {
-	addr := ":3000"
-	if p := os.Getenv("PORT"); p != "" {
-		addr = ":" + p
-	}
-
-	http.HandleFunc("/", handleICS)
-
-	log.Printf("Listening on http://localhost%s", addr)
-	log.Fatal(http.ListenAndServe(addr, nil))
 }
