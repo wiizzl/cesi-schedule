@@ -1,4 +1,4 @@
-package api
+package schedule
 
 import (
 	"fmt"
@@ -53,7 +53,7 @@ func utc(t time.Time) string {
 }
 
 func dateOnly(t time.Time) string {
-	return t.UTC().Format("20060102")
+	return t.Format("20060102")
 }
 
 func toICS(seances []seance) string {
@@ -115,6 +115,9 @@ func toICS(seances []seance) string {
 
 		lines = append(lines, "BEGIN:VEVENT", "UID:"+esc(uid)+"@ent.cesi.fr", "DTSTAMP:"+stamp)
 		if s.AllDay {
+			if dateOnly(end) <= dateOnly(start) {
+				end = start.AddDate(0, 0, 1)
+			}
 			lines = append(lines, "DTSTART;VALUE=DATE:"+dateOnly(start), "DTEND;VALUE=DATE:"+dateOnly(end))
 		} else {
 			lines = append(lines, "DTSTART:"+utc(start), "DTEND:"+utc(end))
