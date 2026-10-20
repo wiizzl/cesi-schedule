@@ -51,7 +51,7 @@ func resolveRange(q url.Values) (start, end string, err error) {
 }
 
 func HandleICS(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/" && r.URL.Path != "/api" {
+	if r.URL.Path != "/" {
 		http.Error(w, "not found", http.StatusNotFound)
 		return
 	}
